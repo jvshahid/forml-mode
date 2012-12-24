@@ -1,0 +1,31 @@
+-- forml mode test
+
+-- function names are highlighted ed
+
+foo x y = z
+
+foo(x, y) = z
+
+-- _ (underscore) can be part of the identifier
+foo x y_ = z
+
+-- inline is a keyword
+inline object? x y = do!``
+
+>>= x y = x >> y
+
+do! x   <- `1 + 4`
+    y   <- `2 + 3`
+    ans <- `x + y`
+    return (10 == ans)
+
+
+foo: JS a -> JS b
+
+(>>): JS a -> JS b
+
+fib 0 = 0 | 1 = 1 | n = fib(n - 1) + fib(n - 2)
+
+bar x y z == x * y * z
+
+let x = "foo"
