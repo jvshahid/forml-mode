@@ -37,16 +37,49 @@
   :type 'hook
   :group 'forml)
 
-(defvar forml-keywords-regexp
-  (regexp-opt '("open" "Functor" "Monad")))
+(setq forml-keywords-regexp
+      (regexp-opt '("open" "module" "private" "as" "do" "do!" "let" "inline" "yield" "var") 'words))
 
-(defvar forml-string-regexp "\".*\"")
+(setq forml-keywords-symbol-regex
+      (regexp-opt '("<-" "->" "\s |\s " "λ" "|>" "<|")))
+
+(setq forml-operators-regex
+      (regexp-opt
+       '("*" "/" "==" "!=" "/=" "||" "&&" "+" "-" "++" "::" ":::" "<=" ">=" "<:") 'symbols))
+
+(setq forml-type-regexp "\\<[[:upper:]]\\w+\\>")
+
+(setq forml-fun-inline-def-regexp
+      "^\\W*\\(?:inline\\|let\\|var\\)\\s +(?\\(\\w+\\))?[^=\n]+=[^=][^\n]*$")
+
+(setq forml-fun-def-regexp
+      "^\\W*\\(\\w+\\)[^=\n]+=[^=][^\n]*$")
+
+(setq forml-fun-def-paran-regexp
+      "^\\W*(\\(\\w+\\))[^=\n]+=[^=][^\n]*$")
+
+(setq forml-fun-decl-regexp
+      "(?\\(\\w+\\))?[ \t]*:")
+
+(setq forml-constant-regexp
+      "[0-9\\.]+\\|true\\|false")
+
+(setq forml-nil-regexp
+      "nil")
 
 ;; The language keywords
-(defvar forml-font-lock-keywords
+(setq forml-font-lock-keywords
   ;; order matters but how ?
-  `((,forml-string-regexp . font-lock-string-face)
-    (,forml-keywords-regexp . font-lock-keyword-face)))
+    `((,forml-keywords-regexp           . font-lock-keyword-face)
+      (,forml-keywords-symbol-regex     . font-lock-keyword-face)
+      (,forml-type-regexp               . font-lock-type-face)
+      (,forml-constant-regexp           . font-lock-constant-face)
+      (,forml-operators-regex           . font-lock-variable-name-face)
+      (,forml-nil-regexp                . font-lock-constant-face)
+      (,forml-fun-decl-regexp           . (1 font-lock-function-name-face))
+      (,forml-fun-inline-def-regexp     . (1 font-lock-function-name-face))
+      (,forml-fun-def-paran-regexp      . (1 font-lock-function-name-face))
+      (,forml-fun-def-regexp            . (1 font-lock-function-name-face))))
 
 ;;;
 (define-derived-mode forml-mode fundamental-mode
@@ -56,7 +89,26 @@
   ;; code for syntax highlighting
   (setq font-lock-defaults '((forml-font-lock-keywords)))
 
-  ;; perl style comment: "# ..."
+  ;; _ can be part of identifier
+  (modify-syntax-entry ?_ "w" forml-mode-syntax-table)
+  (modify-syntax-entry ?+ "w" forml-mode-syntax-table)
+  (modify-syntax-entry ?- "w" forml-mode-syntax-table)
+  (modify-syntax-entry ?/ "w" forml-mode-syntax-table)
+  (modify-syntax-entry ?* "w" forml-mode-syntax-table)
+  (modify-syntax-entry ?^ "w" forml-mode-syntax-table)
+  (modify-syntax-entry ?? "w" forml-mode-syntax-table)
+  (modify-syntax-entry ?> "w" forml-mode-syntax-table)
+  (modify-syntax-entry ?< "w" forml-mode-syntax-table)
+  (modify-syntax-entry ?= "w" forml-mode-syntax-table)
+  (modify-syntax-entry ?| "w" forml-mode-syntax-table)
+  (modify-syntax-entry ?& "w" forml-mode-syntax-table)
+  (modify-syntax-entry ?! "w" forml-mode-syntax-table)
+  (modify-syntax-entry ?: "w" forml-mode-syntax-table)
+
+  (modify-syntax-entry ?\" "\"" forml-mode-syntax-table)
+  (modify-syntax-entry ?` "\"" forml-mode-syntax-table)
+
+  ;; comments
   (modify-syntax-entry ?- "- 12" forml-mode-syntax-table)
   (modify-syntax-entry ?\n ">" forml-mode-syntax-table)
 
@@ -65,3 +117,5 @@
 
 ;;; autoload
 (add-to-list 'auto-mode-alist '("\\.forml$" . forml-mode))
+
+(provide 'forml-mode)
