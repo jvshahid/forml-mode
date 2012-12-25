@@ -38,7 +38,8 @@
   :group 'forml)
 
 (setq forml-keywords-regexp
-      (regexp-opt '("open" "module" "private" "as" "do" "do!" "let" "inline" "yield" "var") 'words))
+      (regexp-opt '("open" "module" "private" "as" "do" "do!" "let" "inline" "yield" "var"
+                    "if" "then" "else" "when" "and" "or" "lazy" "in" "is" "isnt") 'words))
 
 (setq forml-keywords-symbol-regex
       (regexp-opt '("<-" "->" "\s |\s " "λ" "|>" "<|")))
