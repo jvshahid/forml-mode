@@ -1,6 +1,5 @@
 ;; forml-mode.el --- Major mode to edit Forml files in Emacs
-
-;; Copyright (C) 2012 John Shahid
+;; Copyright (C) 2013 John Shahid
 
 ;; This file is not part of GNU Emacs.
 
