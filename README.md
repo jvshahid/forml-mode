@@ -14,9 +14,28 @@ content back to the original buffer.
 
 Note that if you're not inside a javascript string, a new section will
 be created for you (i.e. ``` `` ``` will be inserted) and when you're
-done editing the javascript it will be copied in that new section.
+done editing the javascript will be copied in that new section.
+
+### Enable flymake
+
+Forml mode comes with flymake setup and ready to use. To enable
+flymake add the following to your .emacs file:
+
+```lisp
+(custom-set-variables
+ '(forml-mode-flymake t))
+```
+
+If `forml` isn't on your path you'll have to add the following instead:
+
+```lisp
+(custom-set-variables
+ '(forml-mode-flymake t)
+ '(forml-mode-forml-path "path to forml"))
+``````
+
+where "path to forml" is the path to the `forml` binary.
 
 ## TODO
 
 1. Better indentation, something like haskell mode or coffeescript mode.
-3. Flymake FTW.
