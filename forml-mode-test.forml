@@ -14,7 +14,7 @@ inline object? x y = do!``
 
 >>= x y = x >> y
 
--- edit javascript using C-j
+-- edit javascript using C-c C-j
 do! x   <- `1 + 4`
     y   <- `2 + 3`
     z   <- `// this is unnecessarily long to demonstrate the javascript editing in forml-mode
