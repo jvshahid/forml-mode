@@ -153,7 +153,9 @@
           (let* ((outside (if backward (- (point) 1) (point)))
                  (delim (if backward (+ outside 1) (- outside 1))))
             (if (forml-mode-inside-string? outside)
-                (forml-mode-find-string-del outside)
+                (progn
+                  (goto-char outside)
+                  (forml-mode-find-string-del backward))
               delim))
         ;; what the fuck, where's the string delimiter
         ))))
