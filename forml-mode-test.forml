@@ -1,37 +1,36 @@
 -- forml mode test
+module "Forml Mode Test"
 
--- function names are highlighted ed
+  (>>=) x y = x >> y
 
-foo x y = z
+  -- function names are highlighted ed
 
-foo(x, y) = z
+  foo x y = z
 
--- _ (underscore) can be part of the identifier
-foo x y_ = z
+  bar(x, y) = z
 
--- inline is a keyword
-inline object? x y = do!``
+  -- _ (underscore) can be part of the identifier
+  baz x y_ = z
 
->>= x y = x >> y
+  -- inline is a keyword
+  inline object? x y = do!``
 
--- edit javascript using C-c C-j
-do! x   <- `1 + 4`
-    y   <- `2 + 3`
-    z   <- `// this is unnecessarily long to demonstrate the javascript editing in forml-mode
+  -- edit javascript using C-c C-j
+  do! x   <- `1 + 4`
+      y   <- `2 + 3`
+      z   <- `// this is unnecessarily long to demonstrate the javascript editing in forml-mode
 
-            function log(x, y) {
-              return Math.log(x) / Math.log(Math.E);
-            }`
-    ans <- `x + y`
-    return (10 == ans)
+              function log(x, y) {
+                return Math.log(x) / Math.log(Math.E);
+              }`
+      ans <- `x + y`
+      return (10 == ans)
 
 
-foo: JS a -> JS b
+  foo: JS a -> JS b
 
-(>>): JS a -> JS b
+  (>>): JS a -> JS b
 
-fib 0 = 0 | 1 = 1 | n = fib(n - 1) + fib(n - 2)
+  fib 0 = 0 | 1 = 1 | n = fib(n - 1) + fib(n - 2)
 
-bar x y z == x * y * z
-
-let x = "foo"
+  bar x y z == x * y * z
