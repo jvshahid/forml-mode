@@ -14,8 +14,14 @@ inline object? x y = do!``
 
 >>= x y = x >> y
 
+-- edit javascript using C-j
 do! x   <- `1 + 4`
     y   <- `2 + 3`
+    z   <- `// this is unnecessarily long to demonstrate the javascript editing in forml-mode
+
+            function log(x, y) {
+              return Math.log(x) / Math.log(Math.E);
+            }`
     ans <- `x + y`
     return (10 == ans)
 
