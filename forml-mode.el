@@ -187,6 +187,41 @@
         (goto-char end)
         (forml-mode-open-javascript-buffer beg end)))))
 
+(defcustom forml-mode-flymake nil
+  "true if forml-mode should use flymake for all forml buffers"
+  :type '(boolean)
+  :group 'forml)
+
+(defcustom forml-mode-forml-path "forml"
+  "the path to the forml binary"
+  :type '(file)
+  :group 'forml)
+
+(defun forml-mode-syntax-check ()
+  (let* ((temp-file   (flymake-init-create-temp-buffer-copy
+                       'flymake-create-temp-inplace))
+         (local-file  (file-relative-name
+                       temp-file
+                       (file-name-directory buffer-file-name))))
+    (list (file-truename forml-mode-forml-path) (list local-file))))
+
+(defun forml-mode-init-flymake ()
+  (push '(".+\\.forml$" forml-mode-syntax-check) flymake-allowed-file-name-masks)
+  (push '("\"\\([^\"]+\\)\" (line \\([[:digit:]]+\\), column \\([[:digit:]]+\\)):" 1 2 3) flymake-err-line-patterns))
+
+(eval-after-load 'flymake
+  '(forml-mode-init-flymake))
+
+;; initialize flymake
+(add-hook 'forml-mode-hook
+          (function
+           (lambda ()
+             (if (and (not (null buffer-file-name))
+                      (file-writable-p buffer-file-name)
+                      (featurep 'flymake)
+                      forml-mode-flymake)
+                 (flymake-mode)))))
+
 ;;;
 (define-derived-mode forml-mode fundamental-mode
   "Forml"
