@@ -1,9 +1,10 @@
 -- forml mode test
+-- ------
 module "Forml Mode Test"
 
   (>>=) x y = x >> y
 
-  -- function names are highlighted ed
+  -- function names are highlighted
 
   foo x y = z
 
@@ -12,7 +13,9 @@ module "Forml Mode Test"
   -- _ (underscore) can be part of the identifier
   baz x y_ = z
 
+  -- toggle comments of blocks. Continuing comments on next line and filling a comment should work.
   -- inline is a keyword
+  -- this is really really really really really really really really really long comment
   inline object? x y = do!``
 
   -- edit javascript using C-c C-j
@@ -25,7 +28,6 @@ module "Forml Mode Test"
               }`
       ans <- `x + y`
       return (10 == ans)
-
 
   foo: JS a -> JS b
 
