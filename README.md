@@ -54,7 +54,7 @@ for the entire block.
 
 ### Adding a comment at the end of a line
 
-Use `M-j` to add a comment at the end of the current line.
+Use `M-;` to add a comment at the end of the current line.
 
 #### Fill a comment
 
