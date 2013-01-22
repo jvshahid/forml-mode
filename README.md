@@ -36,6 +36,27 @@ If `forml` isn't on your path you'll have to add the following instead:
 
 where "path to forml" is the path to the `forml` binary.
 
+### Smart commenting
+
+Those of you who use emacs will probably know about this feature from other modes.
+It is added for those who are new to Emacs and using it to write some Forml code.
+
+#### Continue a comment on the next line
+
+You can use the combination `M-j` to continue a comment (that's getting long)
+on the next line.
+
+#### Comment a region
+
+Mark the region by going to the start and hitting `C-spc` then go to the end
+and hit `C-spc` then use the combination `C-;` or `M-;` to toggle the comments
+for the entire block.
+
+#### Fill a comment
+
+If you have a comment that's too long you can mark the entire line and using
+`M-q` to split the comment to multiple lines.
+
 ## TODO
 
 1. Better indentation, something like haskell mode or coffeescript mode.
