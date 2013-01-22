@@ -18,6 +18,7 @@
 ;; Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 (require 'font-lock)
+(require 'newcomment)
 
 (defconst forml-mode-version "0.1"
   "The version of `forml-mode'.")
@@ -230,10 +231,13 @@
   ;; code for syntax highlighting
   (setq font-lock-defaults '((forml-font-lock-keywords)))
 
+  ;; comments
+  (modify-syntax-entry ?\n ">" forml-mode-syntax-table)
+
   ;; _ can be part of identifier
   (modify-syntax-entry ?_ "w" forml-mode-syntax-table)
   (modify-syntax-entry ?+ "w" forml-mode-syntax-table)
-  (modify-syntax-entry ?- "w" forml-mode-syntax-table)
+  (modify-syntax-entry ?- "w 12" forml-mode-syntax-table)
   (modify-syntax-entry ?/ "w" forml-mode-syntax-table)
   (modify-syntax-entry ?* "w" forml-mode-syntax-table)
   (modify-syntax-entry ?^ "w" forml-mode-syntax-table)
@@ -249,9 +253,9 @@
   (modify-syntax-entry ?\" "\"" forml-mode-syntax-table)
   (modify-syntax-entry ?` "\"" forml-mode-syntax-table)
 
-  ;; comments
-  (modify-syntax-entry ?- "- 12" forml-mode-syntax-table)
-  (modify-syntax-entry ?\n ">" forml-mode-syntax-table)
+  (make-local-variable 'comment-start)
+  (setq comment-start "--")
+  (comment-normalize-vars)
 
   ;; no tabs
   (setq indent-tabs-mode nil))
